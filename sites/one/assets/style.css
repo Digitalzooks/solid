@@ -311,13 +311,15 @@ i{font-style:italic}
 .mast__menu{display:inline-flex;align-items:center;gap:10px;min-height:42px;padding-right:14px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
 .mast__menu:hover{color:var(--red)}
 .logo{align-items:center}
-.mast .logo--full{display:block;width:clamp(480px,40vw,560px);height:auto}
+.mast .logo--full{display:block;width:clamp(340px,26vw,400px);height:auto}
+.foot__brand .logo__svg{height:44px}
+.menu__bar .logo__svg{height:30px}
 .mast .logo--short{display:none}
 .foot .logo{align-items:flex-start}
 .nav{position:sticky;top:0;z-index:50;background:var(--bg);border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
 .nav__in{position:relative;display:flex;justify-content:center}
 .nav__logo{position:absolute;left:0;top:50%;translate:0 -50%;color:var(--ink);opacity:0;pointer-events:none;transition:opacity .3s}
-.nav__logo .logo__svg{height:34px}
+.nav__logo .logo__svg{height:26px}
 .scrolled .nav__logo{opacity:1;pointer-events:auto}
 .nav__l{display:flex;justify-content:center;gap:clamp(14px,1.75vw,28px);transition:translate .3s}
 .nav__i{position:relative}
@@ -493,7 +495,7 @@ i{font-style:italic}
 @media (max-width:1020px){
   .nav{display:none}
   .mast{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--ink)}
-  .mast .logo--full{display:none}.mast .logo--short{display:block;height:clamp(40px,6.5vw,58px)}
+  .mast .logo--full{display:none}.mast .logo--short{display:block;height:clamp(30px,4.6vw,40px)}
   .cover{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .cover__side{grid-column:1/-1;padding:0;border:0}
   .latest{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}
