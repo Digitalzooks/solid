@@ -32,6 +32,8 @@ for (const theme of themes) {
   write('assets/style.css', base + '\n' + read(`themes/${theme.key}.css`));
   write('assets/app.js', appJs);
   write('assets/index.json', index);
+  for (const [from, to] of [['favicon/favicon.ico', 'favicon.ico'], ['favicon/apple-touch-icon.png', 'apple-touch-icon.png'], ['favicon/favicon-192.png', 'icon-192.png'], ['favicon/favicon-512.png', 'icon-512.png'], ['sm-mark-red.svg', 'sm-mark-red.svg']])
+    fs.copyFileSync(path.join(here, 'brand', from), path.join(out, to));
 
   page('', 0, 'home', 'SOLID — Grow. Achieve. Thrive.', (c) => theme.home(c), 'is-home');
   for (const sec of D.SECTIONS) page(sec.slug, 1, sec.slug, sec.name, (c) => S.sectionPage(c, sec), 'is-section');

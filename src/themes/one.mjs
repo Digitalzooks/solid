@@ -1,14 +1,14 @@
 // Design One — "The Editorial". Classic print-magazine language: serif masthead, ruled columns, light-first.
 import * as D from '../data.mjs';
-import { card, pic, icon, secHead, logo, themeToggle, navItems, newsletter, u, esc } from '../shared.mjs';
+import { card, pic, icon, secHead, logo, logoSvg, themeToggle, navItems, newsletter, u, esc } from '../shared.mjs';
 
 const header = (c) => `<div class="top"><div class="wrap top__in"><span>Monday, 16 November 2026</span><span class="top__mid">The magazine for men who want more</span><span class="top__r"><a href="${c.root}the-solid-100/">The SOLID 100</a><a href="${c.root}about/">About</a><a href="${c.root}advertise/">Advertise</a></span></div></div>
 <header class="mast"><div class="wrap mast__in">
 <div class="mast__l"><button class="mast__menu" type="button" data-menu-open>${icon.menu}<span>Sections</span></button><button class="icon-btn" type="button" data-search-open aria-label="Search">${icon.search}</button></div>
-${logo(c)}
+${logo(c, true)}
 <div class="mast__r">${themeToggle()}<a class="btn btn--red" href="#newsletter">Subscribe</a></div>
 </div></header>
-<nav class="nav" aria-label="Sections"><div class="wrap nav__in"><a class="nav__logo" href="${c.root}" aria-hidden="true" tabindex="-1">SOLID</a><ul class="nav__l">${navItems(c, [...D.SECTIONS, { slug: 'the-solid-100', name: 'The SOLID 100' }, { slug: 'conversations', name: 'Conversations' }])}</ul></div></nav>`;
+<nav class="nav" aria-label="Sections"><div class="wrap nav__in"><a class="nav__logo" href="${c.root}" aria-hidden="true" tabindex="-1">${logoSvg()}</a><ul class="nav__l">${navItems(c, [...D.SECTIONS, { slug: 'the-solid-100', name: 'The SOLID 100' }, { slug: 'conversations', name: 'Conversations' }])}</ul></div></nav>`;
 
 function home(c) {
   const q = (sec, n = 0) => D.bySection(sec)[n];

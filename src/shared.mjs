@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import * as D from './data.mjs';
 
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
@@ -32,8 +33,15 @@ export const u = {
   author: (c, a) => `${c.root}author/${a.slug}/`,
 };
 
-export const logo = (c, tag = true) =>
-  `<a class="logo" href="${c.root}" aria-label="SOLID — home"><span class="logo__w">SOLID</span>${tag ? '<span class="logo__t">Grow <i>·</i> Achieve <i>·</i> Thrive</span>' : ''}</a>`;
+// The SOLID MAG logo, traced from the client's masthead. Defined once per page as symbols;
+// ink follows the text colour (light/dark mode), red uses the brand red.
+const LG = JSON.parse(fs.readFileSync(new URL('./logo.json', import.meta.url), 'utf8'));
+const sym = (id, g) => `<symbol id="${id}" viewBox="0 0 ${g.w} ${g.h}"><path fill="currentColor" fill-rule="evenodd" d="${g.ink}"/><path style="fill:var(--red)" fill-rule="evenodd" d="${g.red}"/></symbol>`;
+export const logoDefs = `<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">${sym('lg-the', LG.the)}${sym('lg-full', LG.full)}</svg>`;
+export const logoSvg = (kind = 'the', cls = '') => `<svg class="logo__svg${cls ? ' ' + cls : ''}" viewBox="0 0 ${LG[kind].w} ${LG[kind].h}" aria-hidden="true" focusable="false"><use href="#lg-${kind}"/></svg>`;
+// full = masthead with rule and tagline (only where it can be shown at 480px+ wide).
+export const logo = (c, full = false) =>
+  `<a class="logo" href="${c.root}" aria-label="The SOLID Mag — home">${full ? logoSvg('full', 'logo--full') + logoSvg('the', 'logo--short') : logoSvg('the')}</a>`;
 
 export const themeToggle = () =>
   `<button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Switch between light and dark mode" title="Light / dark mode">${icon.sun}${icon.moon}</button>`;
@@ -101,8 +109,6 @@ const searchPanel = () =>
   `<div class="search" id="search" aria-hidden="true" role="dialog" aria-label="Search"><div class="search__in"><button class="icon-btn search__x" type="button" data-search-close aria-label="Close search">${icon.close}</button>
 <label class="kicker" for="q">Search SOLID</label><div class="search__field">${icon.search}<input id="q" type="search" data-search-input placeholder="Stories, people, topics…" autocomplete="off"></div><ul class="search__res" data-search-results></ul></div></div>`;
 
-const FAV = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="#C8102E"/><text x="16" y="23" font-family="Arial Black,Arial" font-weight="900" font-size="20" text-anchor="middle" fill="#fff">S</text></svg>')}`;
-
 export function layout(theme, c, { title, body, cls = '', desc = '' }) {
   const init = `(function(){var d=document.documentElement,s=null;try{s=localStorage.getItem('solid-theme')}catch(e){}var m=location.search.match(/[?&]theme=(dark|light)/);if(m)s=m[1];var f='${theme.def}';d.setAttribute('data-theme',s||(f==='auto'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):f))})()`;
   return `<!doctype html>
@@ -112,8 +118,8 @@ export function layout(theme, c, { title, body, cls = '', desc = '' }) {
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc || 'SOLID is the online magazine for Nigerian men who want more — in business, in life and in themselves.')}">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#C8102E">
-<link rel="icon" href="${FAV}">
+<meta name="theme-color" content="#C80F2E">
+<link rel="icon" href="${c.root}favicon.ico" sizes="48x48"><link rel="icon" href="${c.root}sm-mark-red.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="${c.root}apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://images.unsplash.com">
 <link rel="stylesheet" href="${theme.fonts}">
 <link rel="stylesheet" href="${c.root}assets/style.css">
@@ -121,6 +127,7 @@ export function layout(theme, c, { title, body, cls = '', desc = '' }) {
 </head>
 <body class="${cls}">
 <a class="skip" href="#main">Skip to content</a>
+${logoDefs}
 ${theme.header(c)}
 <main id="main">
 ${body}
