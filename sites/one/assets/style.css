@@ -512,6 +512,11 @@ i{font-style:italic}
   .top__in{grid-template-columns:1fr auto}
   .mast__menu span{display:none}
   .mast__r .btn{padding:0 14px;min-height:38px}
+  /* mobile: logo left, tools and menu button right */
+  .mast__in{display:flex;align-items:center;gap:4px}
+  .mast .logo{order:-1;margin-right:auto;align-items:flex-start}
+  .mast__r{order:1}.mast__l{order:2;gap:0}
+  .mast__l .mast__menu{order:2;justify-content:center;width:42px;padding:0;margin-right:-10px}
   .cover{grid-template-columns:1fr}
   .cover__img{order:-1}
   .biz,.edit,.convo,.tri{grid-template-columns:1fr}
