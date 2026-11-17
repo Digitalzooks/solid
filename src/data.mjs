@@ -135,11 +135,23 @@ const RAW = [
   ['The Banker Who Walked Away', 'He left the corner office at 45. What he built next surprised everyone.', 'solid-men', 'Success Stories', 'blueCar', 5, 11],
 ];
 
-export const STORIES = RAW.map(([title, dek, section, sub, img, a, mins], i) => {
-  const d = new Date(Date.UTC(2026, 10, 16) - i * 86400000 * 0.7);
-  return { title, dek, section, sub, img, author: AUTHORS[a], mins, slug: slugify(title), i,
-    date: d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) };
-});
+export const STORIES = RAW.map(([title, dek, section, sub, img, a, mins], i) =>
+  ({ title, dek, section, sub, img, author: AUTHORS[a], mins, slug: slugify(title), i }));
+
+// Publish dates: the cover is newest, then sections take turns, so every section has recent work.
+{
+  const order = SECTIONS.map((s) => s.slug);
+  const pos = {};
+  const ranked = STORIES.slice(1).map((s) => ({ s, n: (pos[s.section] = (pos[s.section] ?? -1) + 1) }))
+    .sort((x, y) => x.n - y.n || order.indexOf(x.s.section) - order.indexOf(y.s.section)).map((x) => x.s);
+  [STORIES[0], ...ranked].forEach((s, rank) => {
+    const d = new Date(Date.UTC(2026, 10, 16) - Math.floor(rank / 2) * 86400000);
+    Object.assign(s, { rank, iso: d.toISOString().slice(0, 10),
+      date: d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }),
+      day: d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) });
+  });
+}
+export const byDate = (list) => [...list].sort((a, b) => a.rank - b.rank);
 
 export const CONVERSATIONS = [
   { title: 'On Building Slowly', guest: 'Kolade Aremu', role: 'Founder, logistics', kind: 'Video Interview', len: '48 min', ep: 24, img: 'mic', dek: 'Our cover subject on patience, partners and the years nobody was watching.' },

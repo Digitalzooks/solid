@@ -22,11 +22,41 @@
     function close() { if (el.getAttribute('aria-hidden') === 'true') return; el.setAttribute('aria-hidden', 'true'); html.classList.remove('has-overlay'); last && last.focus && last.focus(); }
     $$(openSel).forEach(function (b) { b.addEventListener('click', open); });
     $$(closeSel, el).forEach(function (b) { b.addEventListener('click', close); });
+    $$('a[href]', el).forEach(function (a) { a.addEventListener('click', close); });
     el.addEventListener('click', function (e) { if (e.target === el) close(); });
     d.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
   }
   overlay('menu', '[data-menu-open]', '[data-menu-close]');
   overlay('search', '[data-search-open]', '[data-search-close]', function (el) { setTimeout(function () { var i = $('input', el); i && i.focus(); }, 60); });
+
+  // Section topic filter
+  var scope = $('[data-filter-scope]'), fbar = $('[data-filter-bar]');
+  if (scope && fbar) {
+    var names = {};
+    $$('[data-filter]', fbar).forEach(function (a) { names[a.getAttribute('data-filter')] = a.textContent; });
+    var apply = function (key) {
+      if (!names.hasOwnProperty(key)) key = '';
+      $$('[data-filter]', fbar).forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('data-filter') === key ? 'true' : 'false'); });
+      var shown = 0;
+      $$('.card[data-sub]', scope).forEach(function (cd) { var on = !key || cd.getAttribute('data-sub') === key; cd.hidden = !on; if (on) shown++; });
+      $$('[data-filter-group]', scope).forEach(function (g) { g.hidden = !$$('.card[data-sub]', g).some(function (cd) { return !cd.hidden; }); });
+      $('[data-filter-empty]', scope).hidden = shown > 0;
+      $('[data-filter-name]', scope).textContent = names[key] || '';
+      $('[data-filter-note]', scope).innerHTML = key && shown ? 'Showing <b>' + shown + '</b> ' + (shown === 1 ? 'story' : 'stories') + ' in <b>' + names[key] + '</b>' : '';
+    };
+    var fromHash = function () { apply(decodeURIComponent(location.hash.slice(1))); };
+    $$('[data-filter]', d).forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var key = a.getAttribute('data-filter');
+        history.replaceState(null, '', key ? '#' + key : location.pathname + location.search);
+        apply(key);
+        if (!fbar.contains(a)) fbar.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      });
+    });
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
+  }
 
   // Search
   var index = null;

@@ -13,8 +13,7 @@ ${logo(c)}
 function home(c) {
   const q = (sec, n = 0) => D.bySection(sec)[n];
   const cover = D.STORIES[0];
-  const latest = [q('business'), q('wealth'), q('health'), q('lifestyle'), q('leadership'), q('culture')];
-  const ago = ['2 hours ago', '4 hours ago', '6 hours ago', 'Yesterday', 'Yesterday', '2 days ago'];
+  const latest = D.byDate([q('business'), q('wealth'), q('health'), q('lifestyle'), q('leadership'), q('culture')]);
   const trending = [q('wealth', 1), q('health', 3), q('lifestyle', 1), q('mind'), q('business', 4)];
   const men = D.bySection('solid-men').slice(1, 5);
   const [cv, ...eps] = D.CONVERSATIONS;
@@ -31,7 +30,7 @@ function home(c) {
 <p class="meta"><span>By ${esc(cover.author.name)}</span><span>${cover.mins} min read</span></p>
 <a class="btn btn--ghost" href="${u.story(c, cover)}">Read the cover story ${icon.arrow}</a></div>
 <a class="cover__img" href="${u.story(c, cover)}" tabindex="-1">${pic(cover.img, 1040, 1300, 'Portrait of a smiling man in a blue suit', true)}<span class="cover__cap">Kolade Aremu, photographed in Lagos for SOLID</span></a>
-<aside class="cover__side"><h2 class="rule-h">Latest</h2><ol class="latest">${latest.map((s, i) => `<li><span class="latest__m"><a class="kicker" href="${u.sec(c, s.section)}">${D.section(s.section).name}</a><time>${ago[i]}</time></span><h3><a href="${u.story(c, s)}">${esc(s.title)}</a></h3></li>`).join('')}</ol><a class="more" href="${c.root}search/">All stories ${icon.arrow}</a></aside>
+<aside class="cover__side"><h2 class="rule-h">Latest</h2><ol class="latest">${latest.map((s, i) => `<li><span class="latest__m"><a class="kicker" href="${u.sec(c, s.section)}">${D.section(s.section).name}</a><time datetime="${s.iso}">${s.day}</time></span><h3><a href="${u.story(c, s)}">${esc(s.title)}</a></h3></li>`).join('')}</ol><a class="more" href="${c.root}search/">All stories ${icon.arrow}</a></aside>
 </section>
 
 <section class="trend"><div class="wrap trend__in"><div class="trend__h"><h2>Trending</h2><p>What readers are sharing this week</p></div>

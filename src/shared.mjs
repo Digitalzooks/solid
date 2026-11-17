@@ -45,12 +45,12 @@ export function card(c, s, v = 'std', o = {}) {
   const sec = D.section(s.section);
   const showDek = o.dek ?? ['lead', 'wide', 'over'].includes(v);
   const kick = o.kick === 'section' ? sec.name : s.sub;
-  return `<article class="card card--${v}${o.cls ? ' ' + o.cls : ''}">
+  return `<article class="card card--${v}${o.cls ? ' ' + o.cls : ''}" data-sub="${D.slugify(s.sub)}">
 ${o.n ? `<span class="card__num">${String(o.n).padStart(2, '0')}</span>` : ''}${w ? `<div class="card__media">${pic(s.img, w, h, '', o.eager)}</div>` : ''}
 <div class="card__body"><a class="kicker" href="${u.sec(c, s.section)}">${esc(kick)}</a>
 <h3 class="card__title"><a href="${u.story(c, s)}">${esc(s.title)}</a></h3>
 ${showDek ? `<p class="card__dek">${esc(s.dek)}</p>` : ''}
-${o.meta === false ? '' : `<p class="meta"><span>By ${esc(s.author.name)}</span><span>${s.mins} min read</span></p>`}</div></article>`;
+<p class="meta">${o.meta === false ? '' : `<span>By ${esc(s.author.name)}</span>`}<time datetime="${s.iso}">${s.date}</time>${o.meta === false ? '' : `<span>${s.mins} min read</span>`}</p></div></article>`;
 }
 
 export const secHead = (title, href, label = 'View all', kicker = '') =>
@@ -138,13 +138,17 @@ ${searchPanel()}
 const phead = (c, { crumb, title, lede, chips = [], cls = '', extra = '' }) =>
   `<header class="phead ${cls}"><div class="wrap phead__in"><p class="crumb"><a href="${c.root}">Home</a><span>/</span>${crumb}</p><h1 class="phead__t">${title}</h1>${lede ? `<p class="phead__l">${lede}</p>` : ''}${chips.length ? `<ul class="chips">${chips.map(([t, l]) => `<li><a href="${l}">${esc(t)}</a></li>`).join('')}</ul>` : ''}${extra}</div></header>`;
 
+const filterBar = (sec) => `<ul class="chips" data-filter-bar aria-label="Filter ${esc(sec.name)} by topic"><li><a href="#" data-filter="" aria-current="true">All</a></li>${sec.subs.map((x) => `<li><a href="#${D.slugify(x)}" data-filter="${D.slugify(x)}">${esc(x)}</a></li>`).join('')}</ul>`;
+
 export function sectionPage(c, sec) {
   const own = D.bySection(sec.slug);
   const others = D.STORIES.filter((s) => s.section !== sec.slug && s.i > 0);
   const pick = (n, off) => Array.from({ length: n }, (_, i) => others[(off + i * 5) % others.length]);
-  return phead(c, { crumb: esc(sec.name), title: esc(sec.name), lede: `${esc(sec.line)} ${esc(sec.intro)}`, chips: sec.subs.map((x) => [x, `#${D.slugify(x)}`]) })
-    + `<section class="wrap pblock">${card(c, own[0], 'lead', { eager: true })}</section>
-<section class="wrap pblock"><div class="grid grid-3">${own.slice(1).map((s) => card(c, s, 'std', { dek: true })).join('')}</div></section>
+  return phead(c, { crumb: esc(sec.name), title: esc(sec.name), lede: `${esc(sec.line)} ${esc(sec.intro)}`, extra: filterBar(sec) })
+    + `<div data-filter-scope><p class="wrap filter-note" data-filter-note aria-live="polite"></p>
+<section class="wrap pblock" data-filter-group>${card(c, own[0], 'lead', { eager: true })}</section>
+<section class="wrap pblock" data-filter-group><div class="grid grid-3">${own.slice(1).map((s) => card(c, s, 'std', { dek: true })).join('')}</div></section>
+<section class="wrap pblock filter-empty" data-filter-empty hidden><p>There are no <b data-filter-name></b> stories yet.</p><a class="btn btn--ghost" href="#" data-filter="">See all ${esc(sec.name)} ${icon.arrow}</a></section></div>
 <section class="band"><div class="wrap">${secHead('More from SOLID', c.root, 'Home')}<div class="grid grid-4">${pick(4, sec.slug.length).map((s) => card(c, s, 'std', { kick: 'section' })).join('')}</div></div></section>
 ${newsletter(c)}`;
 }
@@ -234,7 +238,7 @@ export function authorPage(c, a) {
 
 export function searchPage(c) {
   return phead(c, { crumb: 'Search', title: 'Search', lede: 'Find stories, people and topics across SOLID.', extra: `<div class="search__field search__field--page">${icon.search}<input type="search" data-search-input placeholder="Stories, people, topics…" aria-label="Search SOLID"></div><ul class="search__res" data-search-results></ul>` })
-    + `<section class="wrap pblock">${secHead('Latest stories')}<div class="grid grid-4">${D.STORIES.slice(1, 9).map((s) => card(c, s, 'std', { kick: 'section' })).join('')}</div></section>`;
+    + `<section class="wrap pblock">${secHead('Latest stories')}<div class="grid grid-4">${D.byDate(D.STORIES).slice(1, 9).map((s) => card(c, s, 'std', { kick: 'section' })).join('')}</div></section>`;
 }
 
 export const notFound = (c) =>

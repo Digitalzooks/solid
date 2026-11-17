@@ -12,7 +12,7 @@ function home(c) {
   const q = (sec, n = 0) => D.bySection(sec)[n];
   const cover = D.STORIES[0];
   const trending = [q('wealth', 1), q('health', 3), q('lifestyle', 1), q('mind')];
-  const latest = [q('business'), q('wealth'), q('health'), q('lifestyle'), q('leadership'), q('culture')];
+  const latest = D.byDate([q('business'), q('wealth'), q('health'), q('lifestyle'), q('leadership'), q('culture')]);
   const [cv, ...eps] = D.CONVERSATIONS;
   const bars = Array.from({ length: 56 }, (_, i) => `<i style="--h:${20 + Math.round(Math.abs(Math.sin(i * 1.7) * 55 + Math.cos(i * 0.6) * 25))}%"></i>`).join('');
   const gcard = (slug) => {
