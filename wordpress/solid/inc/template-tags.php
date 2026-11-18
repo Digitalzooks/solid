@@ -431,7 +431,7 @@ function solid_menu_panel() {
 		. '<div class="menu__bar">' . solid_logo( false ) . '<div class="menu__tools">' . solid_theme_toggle() . '<button class="icon-btn" type="button" data-menu-close aria-label="Close menu">' . solid_icon( 'close' ) . '</button></div></div>' . "\n"
 		. '<div class="menu__grid">';
 	foreach ( solid_sections() as $s ) {
-		// Phones: About SOLID leads SOLID Men, and two of its topics are left out (the lower group of menus is hidden on phones).
+		// Sections menu: About SOLID leads SOLID Men, and two of its topics are left out (the lower group of menus is hidden by CSS).
 		$men   = 'solid-men' === $s->slug;
 		$first = $men ? '<li class="menu__mob"><a href="' . esc_url( solid_page_url( 'about' ) ) . '">About SOLID</a></li>' : '';
 		$h    .= $col( $s->name, get_term_link( $s ), array_map( fn( $x ) => array( $x->name, solid_sub_link( $x ) ), solid_subs( $s ) ), $first, $men ? array( 'Milestones', 'Rising Men' ) : array() );

@@ -98,7 +98,7 @@ ${col('SOLID', [['Our Story', `${c.root}about/`], ['Editorial Team', `${c.root}a
 
 // nl: where Subscribe goes (this page's newsletter block, or the home page's)
 function menuPanel(c, nl = '#newsletter') {
-  // Phones: About SOLID leads SOLID Men, and two of its topics are left out (the lower group of menus is hidden on phones).
+  // Sections menu: About SOLID leads SOLID Men, and two of its topics are left out (the lower group of menus is hidden by CSS).
   const MOBILE_HIDE = ['Milestones', 'Rising Men'];
   const extra = (s) => (s.slug === 'solid-men' ? `<li class="menu__mob"><a href="${c.root}about/">About SOLID</a></li>` : '');
   const item = (s, x) => `<li${s.slug === 'solid-men' && MOBILE_HIDE.includes(x) ? ' class="menu__desk"' : ''}><a href="${u.sub(c, s.slug, x)}">${esc(x)}</a></li>`;
