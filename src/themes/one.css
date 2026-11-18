@@ -223,6 +223,8 @@ i{font-style:italic}
   .top__in{grid-template-columns:1fr auto}
   .mast__menu span{display:none}
   .mast__r .btn{display:none}
+  .menu__grid--b{display:none}
+  .menu__col .menu__mob{display:list-item}
   .menu__sub{display:block;margin-top:40px;padding:28px 24px;background:var(--bg2,rgba(127,127,127,.08));border-top:3px solid var(--red)}
   .menu__sub .kicker{color:var(--red);margin:0 0 8px}
   .menu__sub-t{font-family:var(--font-d);font-weight:700;font-size:28px;line-height:1.1;margin:0 0 10px}

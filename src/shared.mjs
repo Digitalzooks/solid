@@ -98,7 +98,9 @@ ${col('SOLID', [['Our Story', `${c.root}about/`], ['Editorial Team', `${c.root}a
 
 // nl: where Subscribe goes (this page's newsletter block, or the home page's)
 function menuPanel(c, nl = '#newsletter') {
-  const col = (s) => `<div class="menu__col"><a class="menu__h" href="${u.sec(c, s.slug)}">${esc(s.name)}</a><ul>${s.subs.map((x) => `<li><a href="${u.sub(c, s.slug, x)}">${esc(x)}</a></li>`).join('')}</ul></div>`;
+  // Mobile only: About SOLID sits under SOLID Men (the lower group of menus is hidden on phones).
+  const extra = (s) => (s.slug === 'solid-men' ? `<li class="menu__mob"><a href="${c.root}about/">About SOLID</a></li>` : '');
+  const col = (s) => `<div class="menu__col"><a class="menu__h" href="${u.sec(c, s.slug)}">${esc(s.name)}</a><ul>${s.subs.map((x) => `<li><a href="${u.sub(c, s.slug, x)}">${esc(x)}</a></li>`).join('')}${extra(s)}</ul></div>`;
   return `<div class="menu" id="menu" aria-hidden="true" role="dialog" aria-label="All sections"><div class="menu__in wrap">
 <div class="menu__bar">${logo(c, false)}<div class="menu__tools">${themeToggle()}<button class="icon-btn" type="button" data-menu-close aria-label="Close menu">${icon.close}</button></div></div>
 <div class="menu__grid">${D.SECTIONS.map(col).join('')}</div>

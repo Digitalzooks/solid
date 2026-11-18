@@ -420,18 +420,20 @@ function solid_nav_items() {
 
 function solid_menu_panel() {
 	$nl  = ! empty( $GLOBALS['solid_has_newsletter'] ) ? '#newsletter' : home_url( '/#newsletter' );
-	$col = function ( $name, $href, $items ) {
+	$col = function ( $name, $href, $items, $extra = '' ) {
 		$h = '<div class="menu__col"><a class="menu__h" href="' . esc_url( $href ) . '">' . solid_e( $name ) . '</a><ul>';
 		foreach ( $items as $i ) {
 			$h .= '<li><a href="' . esc_url( $i[1] ) . '">' . solid_e( $i[0] ) . '</a></li>';
 		}
-		return $h . '</ul></div>';
+		return $h . $extra . '</ul></div>';
 	};
 	$h = '<div class="menu" id="menu" aria-hidden="true" role="dialog" aria-label="All sections"><div class="menu__in wrap">' . "\n"
 		. '<div class="menu__bar">' . solid_logo( false ) . '<div class="menu__tools">' . solid_theme_toggle() . '<button class="icon-btn" type="button" data-menu-close aria-label="Close menu">' . solid_icon( 'close' ) . '</button></div></div>' . "\n"
 		. '<div class="menu__grid">';
 	foreach ( solid_sections() as $s ) {
-		$h .= $col( $s->name, get_term_link( $s ), array_map( fn( $x ) => array( $x->name, solid_sub_link( $x ) ), solid_subs( $s ) ) );
+		// Mobile only: About SOLID sits under SOLID Men (the lower group of menus is hidden on phones).
+		$extra = 'solid-men' === $s->slug ? '<li class="menu__mob"><a href="' . esc_url( solid_page_url( 'about' ) ) . '">About SOLID</a></li>' : '';
+		$h    .= $col( $s->name, get_term_link( $s ), array_map( fn( $x ) => array( $x->name, solid_sub_link( $x ) ), solid_subs( $s ) ), $extra );
 	}
 	$h .= '</div>' . "\n" . '<div class="menu__grid menu__grid--b">';
 	foreach ( array_merge( solid_franchises(), solid_company() ) as $s ) {

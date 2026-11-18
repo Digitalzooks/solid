@@ -162,6 +162,7 @@ em{font-style:normal;color:var(--red)}
 .menu__bar .logo__svg{height:44px}
 .menu__tools{display:flex;gap:4px}
 .menu__sub{display:none}
+.menu__mob{display:none}
 .menu__grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:40px 28px}
 .menu__grid--b{margin-top:48px;padding-top:40px;border-top:1px solid var(--line)}
 .menu__h{display:block;font-family:var(--font-d);font-weight:var(--d-wt,700);font-size:26px;line-height:1.1;margin-bottom:14px;transition:color .2s}
