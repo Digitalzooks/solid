@@ -513,8 +513,12 @@ i{font-style:italic}
   .top__in{grid-template-columns:1fr auto}
   .mast__menu span{display:none}
   .mast__r .btn{display:none}
-  .menu__sub{display:block;margin-top:40px;padding-top:32px;border-top:1px solid var(--line)}
+  .menu__sub{display:block;margin-top:40px;padding:28px 24px;background:var(--bg2,rgba(127,127,127,.08));border-top:3px solid var(--red)}
+  .menu__sub .kicker{color:var(--red);margin:0 0 8px}
+  .menu__sub-t{font-family:var(--font-d);font-weight:700;font-size:28px;line-height:1.1;margin:0 0 10px}
+  .menu__sub-d{font-size:15px;line-height:1.5;color:var(--ink2);margin:0 0 20px}
   .menu__sub .btn{width:100%;justify-content:center;min-height:52px}
+  .menu__sub small{display:block;margin-top:12px;font-size:12px;color:var(--ink2);text-align:center}
   /* mobile: logo left, tools and menu button right */
   .mast__in{display:flex;align-items:center;gap:4px}
   .mast .logo{order:-1;margin-right:auto;align-items:flex-start}
