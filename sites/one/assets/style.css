@@ -316,7 +316,7 @@ i{font-style:italic}
 .foot__brand .logo__svg{height:44px}
 .menu__bar .logo__svg{height:30px}
 .mast .logo--short{display:none}
-.foot .logo{align-items:flex-start}
+.foot .logo{align-items:flex-start;color:#fff}
 .nav{position:sticky;top:0;z-index:50;background:var(--bg);border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
 .nav__in{position:relative;display:flex;justify-content:center}
 .nav__logo{position:absolute;left:0;top:50%;translate:0 -50%;color:var(--ink);opacity:0;pointer-events:none;transition:opacity .3s}
