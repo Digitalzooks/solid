@@ -96,12 +96,14 @@ ${col('SOLID', [['Our Story', `${c.root}about/`], ['Editorial Team', `${c.root}a
 </div></footer>`;
 }
 
-function menuPanel(c) {
+// nl: where Subscribe goes (this page's newsletter block, or the home page's)
+function menuPanel(c, nl = '#newsletter') {
   const col = (s) => `<div class="menu__col"><a class="menu__h" href="${u.sec(c, s.slug)}">${esc(s.name)}</a><ul>${s.subs.map((x) => `<li><a href="${u.sub(c, s.slug, x)}">${esc(x)}</a></li>`).join('')}</ul></div>`;
   return `<div class="menu" id="menu" aria-hidden="true" role="dialog" aria-label="All sections"><div class="menu__in wrap">
 <div class="menu__bar">${logo(c, false)}<div class="menu__tools">${themeToggle()}<button class="icon-btn" type="button" data-menu-close aria-label="Close menu">${icon.close}</button></div></div>
 <div class="menu__grid">${D.SECTIONS.map(col).join('')}</div>
 <div class="menu__grid menu__grid--b">${[...D.FRANCHISES, ...D.COMPANY].map(col).join('')}<div class="menu__col"><span class="menu__h">More</span><ul><li><a href="${c.root}search/">Search</a></li>${D.LEGAL.map((l) => `<li><a href="${c.root}${l.slug}/">${l.name}</a></li>`).join('')}</ul></div></div>
+<div class="menu__sub"><a class="btn btn--red" href="${nl}">Subscribe</a></div>
 </div></div>`;
 }
 
@@ -133,7 +135,7 @@ ${theme.header(c)}
 ${body}
 </main>
 ${footer(c)}
-${menuPanel(c)}
+${menuPanel(c, body.includes('id="newsletter"') ? '#newsletter' : `${c.root}#newsletter`)}
 ${searchPanel()}
 <script src="${c.root}assets/app.js" defer></script>
 </body>
