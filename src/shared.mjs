@@ -79,7 +79,7 @@ export const social = () =>
   `<ul class="social"><li><a href="#" aria-label="X">${icon.x}</a></li><li><a href="#" aria-label="Instagram">${icon.ig}</a></li><li><a href="#" aria-label="YouTube">${icon.yt}</a></li><li><a href="#" aria-label="LinkedIn">${icon.in}</a></li></ul>`;
 
 export function navItems(c, list) {
-  return list.map((s) => `<li class="nav__i${c.current === s.slug ? ' is-on' : ''}"><a href="${u.sec(c, s.slug)}">${esc(s.short || s.name)}</a>${s.subs ? `<ul class="nav__sub">${s.subs.map((x) => `<li><a href="${u.sub(c, s.slug, x)}">${esc(x)}</a></li>`).join('')}</ul>` : ''}</li>`).join('');
+  return list.map((s) => `<li class="nav__i${c.current === s.slug ? ' is-on' : ''}"><a href="${u.sec(c, s.slug)}">${esc(s.short || s.name)}</a></li>`).join('');
 }
 
 function footer(c) {
@@ -98,15 +98,11 @@ ${col('SOLID', [['Our Story', `${c.root}about/`], ['Editorial Team', `${c.root}a
 
 // nl: where Subscribe goes (this page's newsletter block, or the home page's)
 function menuPanel(c, nl = '#newsletter') {
-  // Sections menu: About SOLID leads SOLID Men, and two of its topics are left out (the lower group of menus is hidden by CSS).
-  const MOBILE_HIDE = ['Milestones', 'Rising Men'];
-  const extra = (s) => (s.slug === 'solid-men' ? `<li class="menu__mob"><a href="${c.root}about/">About SOLID</a></li>` : '');
-  const item = (s, x) => `<li${s.slug === 'solid-men' && MOBILE_HIDE.includes(x) ? ' class="menu__desk"' : ''}><a href="${u.sub(c, s.slug, x)}">${esc(x)}</a></li>`;
-  const col = (s) => `<div class="menu__col"><a class="menu__h" href="${u.sec(c, s.slug)}">${esc(s.name)}</a><ul>${extra(s)}${s.subs.map((x) => item(s, x)).join('')}</ul></div>`;
+  // Sections menu: main items only, each linking to its page (no sub-menus).
+  const item = (name, href) => `<div class="menu__col"><a class="menu__h" href="${href}">${esc(name)}</a></div>`;
   return `<div class="menu" id="menu" aria-hidden="true" role="dialog" aria-label="All sections"><div class="menu__in wrap">
 <div class="menu__bar">${logo(c, false)}<div class="menu__tools">${themeToggle()}<button class="icon-btn" type="button" data-menu-close aria-label="Close menu">${icon.close}</button></div></div>
-<div class="menu__grid">${D.SECTIONS.map(col).join('')}</div>
-<div class="menu__grid menu__grid--b">${[...D.FRANCHISES, ...D.COMPANY].map(col).join('')}<div class="menu__col"><span class="menu__h">More</span><ul><li><a href="${c.root}search/">Search</a></li>${D.LEGAL.map((l) => `<li><a href="${c.root}${l.slug}/">${l.name}</a></li>`).join('')}</ul></div></div>
+<div class="menu__grid">${D.SECTIONS.map((s) => item(s.name, u.sec(c, s.slug))).join('')}${item('About SOLID', `${c.root}about/`)}</div>
 <div class="menu__sub"><p class="kicker">Free newsletter</p><p class="menu__sub-t">The SOLID Brief</p><p class="menu__sub-d">The week’s sharpest stories on business, money and living well, in your inbox every Sunday morning.</p><a class="btn btn--red" href="${nl}">Get the newsletter</a><small>Free. No spam. Unsubscribe at any time.</small></div>
 </div></div>`;
 }

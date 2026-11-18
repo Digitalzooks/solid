@@ -317,10 +317,9 @@ i{font-style:italic}
 .mast .logo--full{display:block;width:clamp(340px,26vw,400px);height:auto}
 .foot__brand .logo__svg{height:44px}
 .menu__bar .logo__svg{height:30px}
-/* Sections menu (all screen sizes): sections only; About SOLID leads SOLID Men; Milestones and Rising Men left out. */
-.menu__grid--b{display:none}
-.menu__col .menu__mob{display:list-item}
-.menu__col .menu__desk{display:none}
+/* Sections menu: main items only, no sub-menus. */
+.menu__grid{row-gap:22px}
+.menu__col .menu__h{margin-bottom:0}
 .mast .logo--short{display:none}
 .foot .logo{align-items:flex-start;color:#fff}
 .nav{position:sticky;top:0;z-index:50;background:var(--bg);border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}

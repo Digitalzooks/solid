@@ -401,16 +401,7 @@ function solid_nav_items() {
 	$cur = solid_current();
 	$h   = '';
 	foreach ( solid_sections() as $s ) {
-		$h .= '<li class="nav__i' . ( $cur === $s->slug ? ' is-on' : '' ) . '"><a href="' . esc_url( get_term_link( $s ) ) . '">' . solid_e( $s->name ) . '</a>';
-		$subs = solid_subs( $s );
-		if ( $subs ) {
-			$h .= '<ul class="nav__sub">';
-			foreach ( $subs as $x ) {
-				$h .= '<li><a href="' . esc_url( solid_sub_link( $x ) ) . '">' . solid_e( $x->name ) . '</a></li>';
-			}
-			$h .= '</ul>';
-		}
-		$h .= '</li>';
+		$h .= '<li class="nav__i' . ( $cur === $s->slug ? ' is-on' : '' ) . '"><a href="' . esc_url( get_term_link( $s ) ) . '">' . solid_e( $s->name ) . '</a></li>';
 	}
 	foreach ( array( array( 'the-solid-100', 'The SOLID 100' ), array( 'conversations', 'Conversations' ) ) as $p ) {
 		$h .= '<li class="nav__i' . ( $cur === $p[0] ? ' is-on' : '' ) . '"><a href="' . esc_url( solid_page_url( $p[0] ) ) . '">' . $p[1] . '</a></li>';
@@ -420,31 +411,15 @@ function solid_nav_items() {
 
 function solid_menu_panel() {
 	$nl  = ! empty( $GLOBALS['solid_has_newsletter'] ) ? '#newsletter' : home_url( '/#newsletter' );
-	$col = function ( $name, $href, $items, $first = '', $mobile_hide = array() ) {
-		$h = '<div class="menu__col"><a class="menu__h" href="' . esc_url( $href ) . '">' . solid_e( $name ) . '</a><ul>' . $first;
-		foreach ( $items as $i ) {
-			$h .= '<li' . ( in_array( $i[0], $mobile_hide, true ) ? ' class="menu__desk"' : '' ) . '><a href="' . esc_url( $i[1] ) . '">' . solid_e( $i[0] ) . '</a></li>';
-		}
-		return $h . '</ul></div>';
-	};
+	// Sections menu: main items only, each linking to its page (no sub-menus).
+	$item = fn( $name, $href ) => '<div class="menu__col"><a class="menu__h" href="' . esc_url( $href ) . '">' . solid_e( $name ) . '</a></div>';
 	$h = '<div class="menu" id="menu" aria-hidden="true" role="dialog" aria-label="All sections"><div class="menu__in wrap">' . "\n"
 		. '<div class="menu__bar">' . solid_logo( false ) . '<div class="menu__tools">' . solid_theme_toggle() . '<button class="icon-btn" type="button" data-menu-close aria-label="Close menu">' . solid_icon( 'close' ) . '</button></div></div>' . "\n"
 		. '<div class="menu__grid">';
 	foreach ( solid_sections() as $s ) {
-		// Sections menu: About SOLID leads SOLID Men, and two of its topics are left out (the lower group of menus is hidden by CSS).
-		$men   = 'solid-men' === $s->slug;
-		$first = $men ? '<li class="menu__mob"><a href="' . esc_url( solid_page_url( 'about' ) ) . '">About SOLID</a></li>' : '';
-		$h    .= $col( $s->name, get_term_link( $s ), array_map( fn( $x ) => array( $x->name, solid_sub_link( $x ) ), solid_subs( $s ) ), $first, $men ? array( 'Milestones', 'Rising Men' ) : array() );
+		$h .= $item( $s->name, get_term_link( $s ) );
 	}
-	$h .= '</div>' . "\n" . '<div class="menu__grid menu__grid--b">';
-	foreach ( array_merge( solid_franchises(), solid_company() ) as $s ) {
-		$h .= $col( $s['name'], solid_page_url( $s['slug'] ), array_map( fn( $x ) => array( $x, solid_page_url( $s['slug'], solid_slugify( $x ) ) ), $s['subs'] ) );
-	}
-	$h .= '<div class="menu__col"><span class="menu__h">More</span><ul><li><a href="' . esc_url( solid_page_url( 'search' ) ) . '">Search</a></li>';
-	foreach ( solid_legal() as $l ) {
-		$h .= '<li><a href="' . esc_url( solid_page_url( $l['slug'] ) ) . '">' . solid_e( $l['name'] ) . '</a></li>';
-	}
-	$h .= '</ul></div></div>' . "\n"
+	$h .= $item( 'About SOLID', solid_page_url( 'about' ) ) . '</div>' . "\n"
 		. '<div class="menu__sub"><p class="kicker">Free newsletter</p><p class="menu__sub-t">The SOLID Brief</p><p class="menu__sub-d">The week’s sharpest stories on business, money and living well, in your inbox every Sunday morning.</p><a class="btn btn--red" href="' . esc_url( $nl ) . '">Get the newsletter</a><small>Free. No spam. Unsubscribe at any time.</small></div>' . "\n"
 		. '</div></div>';
 	return $h;
