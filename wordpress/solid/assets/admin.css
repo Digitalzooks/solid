@@ -98,3 +98,6 @@ html body.wp-admin{
 /* Block editor: the SOLID mark in place of the WordPress logo */
 .edit-post-fullscreen-mode-close.components-button,.edit-site-layout__view-mode-toggle.components-button{background:#C8102E url(brand/sm-mark-red.svg) center/32px no-repeat!important}
 .edit-post-fullscreen-mode-close svg,.edit-site-layout__view-mode-toggle svg{opacity:0}
+
+/* Plugin adverts in the admin notices (Hostinger Reach sign-up prompts) */
+.hostinger-reach-notice{display:none!important}
