@@ -282,7 +282,7 @@ function solid_conv_card( $p, $cls = '', $size = 'large' ) {
 		. '<div class="conv__body"><span class="kicker">' . solid_e( $v['kind'] ) . ' · Ep. ' . solid_e( $v['ep'] ) . '</span><h3 class="conv__title"><a href="' . esc_url( $v['url'] ) . '">' . solid_e( $v['title'] ) . '</a></h3><p class="conv__guest">with ' . solid_e( $v['guest'] ) . ', ' . solid_e( strtolower( $v['role'] ) ) . '</p><p class="conv__dek">' . solid_e( $v['dek'] ) . '</p></div></article>';
 }
 
-/** A person card: a man on the SOLID 100 (category + role) or a writer (role, links to their page). */
+/** A person card: an honouree (category + role) or a writer (role, links to their page). */
 function solid_person( $p ) {
 	$p      = get_post( $p );
 	$cat    = (string) get_post_meta( $p->ID, 'solid_category', true );
@@ -357,7 +357,7 @@ function solid_latest( $args = array() ) {
 
 function solid_franchises() {
 	return array(
-		array( 'slug' => 'the-solid-100', 'name' => 'The SOLID 100', 'subs' => array( 'About the List', 'The Categories', 'How We Choose', 'The Men on the List', 'Previous Editions' ) ),
+		array( 'slug' => 'the-solid-100', 'name' => 'The SOLID 100', 'subs' => array( 'About the Recognition', 'Recognition Categories', 'Selection Criteria', 'Honouree Profiles', 'Previous Editions' ) ),
 		array( 'slug' => 'conversations', 'name' => 'SOLID Conversations', 'subs' => array( 'Video Interviews', 'Podcast Episodes', 'Interview Transcripts' ) ),
 	);
 }

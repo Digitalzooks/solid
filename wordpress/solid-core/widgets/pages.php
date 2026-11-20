@@ -106,7 +106,7 @@ abstract class Solid_List_Widget extends Solid_Widget {
 	}
 }
 
-/* ───────── Numbered list (The SOLID 100 categories) ───────── */
+/* ───────── Numbered list (Recognition categories) ───────── */
 class Solid_W_Numbered extends Solid_List_Widget {
 	protected $icon = 'bullet-list';
 	public function get_name() { return 'solid-numbered'; }
@@ -115,7 +115,7 @@ class Solid_W_Numbered extends Solid_List_Widget {
 		$r->add_control( 'title', array( 'label' => 'Item', 'type' => Controls_Manager::TEXT, 'default' => 'Item', 'label_block' => true ) );
 	}
 	protected function register_controls() {
-		$this->list_controls( 'The categories', array( array( 'title' => 'Business & Enterprise' ), array( 'title' => 'Technology' ) ), 'band' );
+		$this->list_controls( 'Recognition categories', array( array( 'title' => 'Business & Enterprise' ), array( 'title' => 'Technology' ) ), 'band' );
 	}
 	protected function items_html( $items ) {
 		$h = '<ol class="cats">';
@@ -160,7 +160,7 @@ class Solid_W_Offers extends Solid_List_Widget {
 	}
 }
 
-/* ───────── People: the SOLID 100 or writers ───────── */
+/* ───────── People: honourees or writers ───────── */
 class Solid_W_People extends Solid_Widget {
 	protected $icon = 'person';
 	public function get_name() { return 'solid-people'; }
@@ -168,8 +168,8 @@ class Solid_W_People extends Solid_Widget {
 
 	protected function register_controls() {
 		$this->start();
-		$this->heading_controls( 'The men on the list', 'All SOLID Men', '/solid-men/' );
-		$this->choice( 'source', 'People', array( 'solid_honouree' => 'The SOLID 100', 'solid_writer' => 'Writers (editorial team)' ), 'solid_honouree' );
+		$this->heading_controls( 'Honouree profiles', 'All SOLID Men', '/solid-men/' );
+		$this->choice( 'source', 'People', array( 'solid_honouree' => 'SOLID 100 honourees', 'solid_writer' => 'Writers (editorial team)' ), 'solid_honouree' );
 		$this->add_control( 'count', array( 'label' => 'How many (0 = all)', 'type' => Controls_Manager::NUMBER, 'default' => 0, 'min' => 0 ) );
 		$this->end_controls_section();
 	}

@@ -30,10 +30,10 @@ function solid_core_fields() {
 			),
 		),
 		'solid_honouree'     => array(
-			'title'  => 'SOLID 100 details',
+			'title'  => 'Honouree details',
 			'fields' => array(
 				'solid_role'     => array( 'Role, e.g. Founder & CEO', 'text' ),
-				'solid_category' => array( 'Category', 'text' ),
+				'solid_category' => array( 'Recognition category', 'text' ),
 			),
 		),
 	);

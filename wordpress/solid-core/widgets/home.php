@@ -268,12 +268,12 @@ class Solid_W_Hundred extends Solid_Widget {
 
 	protected function register_controls() {
 		$this->start();
-		$this->text( 'kicker', 'Small line above', 'The annual list' );
+		$this->text( 'kicker', 'Small line above', 'The annual recognition' );
 		$this->text( 'heading', 'Heading (use <i>…</i> for italics)', 'The SOLID <i>100</i>' );
 		$this->text( 'text', 'Text', 'One hundred Nigerian men whose work, character and influence are setting the standard for a generation.', 'TEXTAREA' );
 		$this->text( 'button', 'Button text', 'Explore the list' );
 		$this->link_control( 'link', 'Button link', '/the-solid-100/' );
-		$this->add_control( 'count', array( 'label' => 'Number of men', 'type' => Controls_Manager::NUMBER, 'default' => 8, 'min' => 1, 'max' => 24 ) );
+		$this->add_control( 'count', array( 'label' => 'Number of honourees', 'type' => Controls_Manager::NUMBER, 'default' => 8, 'min' => 1, 'max' => 24 ) );
 		$this->end_controls_section();
 	}
 

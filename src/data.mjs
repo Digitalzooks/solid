@@ -49,7 +49,7 @@ export const SECTIONS = [
 ];
 
 export const FRANCHISES = [
-  { slug: 'the-solid-100', name: 'The SOLID 100', subs: ['About the List', 'The Categories', 'How We Choose', 'The Men on the List', 'Previous Editions'] },
+  { slug: 'the-solid-100', name: 'The SOLID 100', subs: ['About the Recognition', 'Recognition Categories', 'Selection Criteria', 'Honouree Profiles', 'Previous Editions'] },
   { slug: 'conversations', name: 'SOLID Conversations', subs: ['Video Interviews', 'Podcast Episodes', 'Interview Transcripts'] },
 ];
 
