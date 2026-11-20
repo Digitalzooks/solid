@@ -33,11 +33,11 @@ function solid_core_register_types() {
 	register_post_type(
 		'solid_honouree',
 		array(
-			'labels'        => array( 'name' => 'SOLID 100', 'singular_name' => 'Honouree', 'all_items' => 'Honourees', 'add_new_item' => 'Add honouree', 'edit_item' => 'Edit honouree', 'featured_image' => 'Portrait', 'set_featured_image' => 'Set portrait' ),
+			'labels'        => array( 'name' => 'SOLID 100', 'singular_name' => 'Man on the list', 'all_items' => 'The list', 'add_new_item' => 'Add a man to the list', 'edit_item' => 'Edit man on the list', 'featured_image' => 'Portrait', 'set_featured_image' => 'Set portrait' ),
 			'public'        => false,
 			'show_ui'       => true,
 			'show_in_rest'  => true,
-			'menu_icon'     => 'dashicons-awards',
+			'menu_icon'     => 'dashicons-list-view',
 			'menu_position' => 8,
 			'supports'      => array( 'title', 'thumbnail', 'page-attributes' ),
 		)

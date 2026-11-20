@@ -52,7 +52,7 @@ function home(c) {
 <div class="convo"><a class="convo__main" href="${c.root}conversations/">${pic(cv.img, 1280, 800)}<span class="play">${icon.play}</span><span class="convo__txt"><span class="kicker">${cv.kind} · Ep. ${cv.ep} · ${cv.len}</span><b>${esc(cv.title)}</b><span>with ${esc(cv.guest)}</span></span></a>
 <ol class="convo__l">${eps.map((v) => `<li><a href="${c.root}conversations/"><span class="convo__ep">Ep. ${v.ep}</span><span class="convo__b"><span class="kicker">${v.kind}</span><b>${esc(v.title)}</b><span>with ${esc(v.guest)} · ${v.len}</span></span><span class="convo__ic">${v.kind.startsWith('Podcast') ? icon.mic : icon.play}</span></a></li>`).join('')}</ol></div></section>
 
-<section class="s100"><div class="wrap s100__in"><div class="s100__copy" data-reveal><p class="kicker">The annual recognition</p><h2 class="s100__t">The SOLID <i>100</i></h2><p>One hundred Nigerian men whose work, character and influence are setting the standard for a generation.</p><a class="btn" href="${c.root}the-solid-100/">Explore the list ${icon.arrow}</a></div>
+<section class="s100"><div class="wrap s100__in"><div class="s100__copy" data-reveal><p class="kicker">The annual list</p><h2 class="s100__t">The SOLID <i>100</i></h2><p>One hundred Nigerian men whose work, character and influence are setting the standard for a generation.</p><a class="btn" href="${c.root}the-solid-100/">Explore the list ${icon.arrow}</a></div>
 <div class="s100__faces">${D.HONOUREES.map((p) => `<figure>${pic(p.img, 360, 440, '')}<figcaption>${esc(p.name)}<span>${esc(p.cat)}</span></figcaption></figure>`).join('')}</div></div></section>
 
 <section class="wrap blk tri" data-reveal>${['family', 'culture', 'impact'].map(tri).join('')}</section>

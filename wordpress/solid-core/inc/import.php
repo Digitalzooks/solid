@@ -298,18 +298,17 @@ function solid_core_import_pages( $seed ) {
 		)
 	);
 
-	$fr  = array( 'About the Recognition', 'Recognition Categories', 'Selection Criteria', 'Honouree Profiles', 'Previous Editions' );
 	$ids['the-solid-100'] = solid_core_elementor_page(
 		'the-solid-100',
 		'The SOLID 100',
 		array(
-			solid_core_w( 'solid-page-header', array( 'crumb' => 'The SOLID 100', 'title' => 'The SOLID <em>100</em>', 'lede' => 'An annual recognition of one hundred Nigerian men whose work, character and influence are setting the standard for a generation.', 'style' => 'phead--100', 'big' => '100', 'chips' => solid_core_chips( $fr ) ) ),
-			solid_core_w( 'solid-text', array( 'heading' => 'About the recognition', 'content' => '<p>The SOLID 100 is not a rich list and it is not a popularity contest. It is a considered record of men doing serious work: building companies, healing patients, teaching children, making art and serving the public with distinction.</p><p>Each year our editors, guided by an independent advisory panel, select one hundred honourees across ten categories. The list is published in full, with a profile of every man on it.</p>' ), 'about-the-recognition' ),
-			solid_core_w( 'solid-numbered', array( 'heading' => 'Recognition categories', 'background' => 'band', 'items' => array_map( fn( $c ) => array( 'title' => $c ), $seed['categories100'] ) ), 'recognition-categories' ),
+			solid_core_w( 'solid-page-header', array( 'crumb' => 'The SOLID 100', 'title' => 'The SOLID <em>100</em>', 'lede' => 'One hundred Nigerian men at the top of their fields, across ten categories, chosen for their work, character and influence.', 'style' => 'phead--100', 'big' => '100' ) ),
+			solid_core_w( 'solid-text', array( 'heading' => 'About the list', 'content' => '<p>The SOLID 100 is not an award, a rich list or a popularity contest. It is a yearly list of the top Nigerian men in ten fields: men building companies, healing patients, teaching children, making art and serving the public with distinction.</p><p>Each year our editors, guided by an independent advisory panel, choose the men who lead each category. The list is published in full, with a profile of every man on it.</p>' ), 'about-the-list' ),
+			solid_core_w( 'solid-numbered', array( 'heading' => 'The categories', 'background' => 'band', 'items' => array_map( fn( $c ) => array( 'title' => $c ), $seed['categories100'] ) ), 'the-categories' ),
 			solid_core_w(
 				'solid-criteria',
 				array(
-					'heading' => 'Selection criteria',
+					'heading' => 'How we choose',
 					'items'   => array(
 						array( 'title' => 'Achievement', 'text' => 'A sustained record of excellence in his field, measured in outcomes rather than attention.' ),
 						array( 'title' => 'Character', 'text' => 'A reputation for integrity among the people who know his work best.' ),
@@ -317,10 +316,10 @@ function solid_core_import_pages( $seed ) {
 						array( 'title' => 'Impact', 'text' => 'A contribution that reaches beyond personal success to community and country.' ),
 					),
 				),
-				'selection-criteria'
+				'how-we-choose'
 			),
-			solid_core_w( 'solid-people', array( 'heading' => 'Honouree profiles', 'link_label' => 'All SOLID Men', 'link' => array( 'url' => '/solid-men/' ), 'source' => 'solid_honouree' ), 'honouree-profiles' ),
-			solid_core_w( 'solid-text', array( 'heading' => 'Previous editions', 'background' => 'band', 'content' => '<p>The inaugural SOLID 100 will be published in 2027. Past editions will be archived here, with every honouree profile available to read in full.</p>', 'button' => 'Nominate a man', 'button_link' => array( 'url' => '/about/#contact' ) ), 'previous-editions' ),
+			solid_core_w( 'solid-people', array( 'heading' => 'The men on the list', 'link_label' => 'All SOLID Men', 'link' => array( 'url' => '/solid-men/' ), 'source' => 'solid_honouree' ), 'the-men-on-the-list' ),
+			solid_core_w( 'solid-text', array( 'heading' => 'Previous editions', 'background' => 'band', 'content' => '<p>The inaugural SOLID 100 will be published in 2027. Past editions will be archived here, with every profile available to read in full.</p>', 'button' => 'Suggest a name', 'button_link' => array( 'url' => '/about/#contact' ) ), 'previous-editions' ),
 			solid_core_w( 'solid-newsletter' ),
 		)
 	);
