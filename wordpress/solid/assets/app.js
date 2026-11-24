@@ -95,6 +95,14 @@
     });
   });
 
+  // Newsletter (Fluent Forms blocks Enter in inputs): let Enter submit the one-field form
+  d.addEventListener('keydown', function (e) {
+    var i = e.target;
+    if (e.key !== 'Enter' || !i.matches || !i.matches('.ff-solid--nl input.ff-el-form-control')) return;
+    var b = i.form && i.form.querySelector('.ff-btn-submit');
+    if (b) { e.preventDefault(); b.click(); }
+  });
+
   // Horizontal rails
   $$('[data-rail]').forEach(function (wrap) {
     var track = $('[data-rail-track]', wrap); if (!track) return;

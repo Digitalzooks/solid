@@ -303,6 +303,7 @@ class Solid_W_Enquiry extends Solid_Widget {
 		$this->text( 'email', 'Email address', 'partnerships@solidng.com' );
 		$this->text( 'options', 'Interest options (one per line)', "Display advertising\nSponsored content\nBrand partnership\nNewsletter sponsorship\nEvents", 'TEXTAREA' );
 		$this->text( 'button', 'Button text', 'Request the media kit' );
+		$this->choice( 'form', 'Fluent Form', solid_ff_options( 'Site default (Customise → Newsletter and enquiry forms)' ), '' );
 		$this->end_controls_section();
 	}
 
@@ -314,6 +315,11 @@ class Solid_W_Enquiry extends Solid_Widget {
 			$opts .= '<option>' . solid_e( $o ) . '</option>';
 		}
 		echo '<section class="wrap pblock split"><div>' . solid_sec_head( self::rich( $s['heading'] ) ) . '<p class="phead__l">' . solid_e( $s['text'] ) . '</p><p><a class="btn btn--ghost" href="mailto:' . esc_attr( $e ) . '">' . esc_html( $e ) . '</a></p></div>' . "\n"; // phpcs:ignore
+		$ff = solid_ff_render( 'enquiry', $s['form'] ?? 0 );
+		if ( $ff ) {
+			echo '<div class="ff-solid ff-solid--enq">' . $ff . '</div></section>'; // phpcs:ignore
+			return;
+		}
 		echo '<form class="form" data-newsletter><label>Name<input type="text" required></label><label>Company<input type="text"></label><label>Work email<input type="email" required></label><label>Interested in<select>' . $opts . '</select></label><label class="form__full">Message<textarea rows="4"></textarea></label><button class="btn btn--red" type="submit">' . solid_e( $s['button'] ) . '</button></form></section>'; // phpcs:ignore
 	}
 }

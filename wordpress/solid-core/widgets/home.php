@@ -331,11 +331,12 @@ class Solid_W_Newsletter extends Solid_Widget {
 		$this->text( 'text', 'Text', 'The week’s sharpest stories on business, money and living well, delivered every Sunday morning.', 'TEXTAREA' );
 		$this->text( 'button', 'Button text', 'Subscribe' );
 		$this->text( 'note', 'Small print', 'No spam. Unsubscribe at any time.' );
+		$this->choice( 'form', 'Fluent Form', solid_ff_options( 'Site default (Customise → Newsletter and enquiry forms)' ), '' );
 		$this->end_controls_section();
 	}
 
 	protected function render() {
 		$s = $this->get_settings_for_display();
-		echo solid_newsletter( array_intersect_key( $s, array_flip( array( 'kicker', 'title', 'text', 'button', 'note' ) ) ) ); // phpcs:ignore
+		echo solid_newsletter( array_intersect_key( $s, array_flip( array( 'kicker', 'title', 'text', 'button', 'note', 'form' ) ) ) ); // phpcs:ignore
 	}
 }

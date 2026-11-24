@@ -16,6 +16,7 @@ define( 'SOLID_CORE_DIR', __DIR__ );
 require __DIR__ . '/inc/content.php';
 require __DIR__ . '/inc/admin.php';
 require __DIR__ . '/inc/import.php';
+require __DIR__ . '/inc/forms.php';
 
 add_action(
 	'plugins_loaded',

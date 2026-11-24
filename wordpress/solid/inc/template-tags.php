@@ -305,8 +305,12 @@ function solid_newsletter( $o = array() ) {
 			'note'   => 'No spam. Unsubscribe at any time.',
 		)
 	);
+	$ff   = function_exists( 'solid_ff_render' ) ? solid_ff_render( 'newsletter', isset( $o['form'] ) ? $o['form'] : 0 ) : '';
+	$form = $ff
+		? '<div class="nl__form ff-solid ff-solid--nl">' . $ff . '<small>' . solid_e( $o['note'] ) . '</small></div>'
+		: '<form class="nl__form" data-newsletter><label class="sr" for="nl-email">Email address</label><input id="nl-email" type="email" required placeholder="Your email address" autocomplete="email"><button class="btn btn--red" type="submit">' . solid_e( $o['button'] ) . '</button><small>' . solid_e( $o['note'] ) . '</small></form>';
 	return '<section class="nl" id="newsletter"><div class="wrap nl__in"><div class="nl__copy"><p class="kicker">' . solid_e( $o['kicker'] ) . '</p><h2 class="nl__t">' . solid_e( $o['title'] ) . '</h2><p class="nl__d">' . solid_e( $o['text'] ) . '</p></div>' . "\n"
-		. '<form class="nl__form" data-newsletter><label class="sr" for="nl-email">Email address</label><input id="nl-email" type="email" required placeholder="Your email address" autocomplete="email"><button class="btn btn--red" type="submit">' . solid_e( $o['button'] ) . '</button><small>' . solid_e( $o['note'] ) . '</small></form></div></section>';
+		. $form . '</div></section>';
 }
 
 function solid_social() {
